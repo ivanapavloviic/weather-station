@@ -6,7 +6,7 @@
       <p class="headerDescription">
         Add 5 cities whose temperature you want to track
       </p>
-    
+
       <div class="searchbox">
         <label>
           <input
@@ -17,7 +17,7 @@
             class="search"
           />
         </label>
-        <button @click="getCityBySearchTerm">Add</button>
+        <button id="submit" @click="getCityBySearchTerm">Add</button>
       </div>
       <div class="results">
         <ul v-if="searchCountries.length">
@@ -202,6 +202,9 @@ label:before {
 input {
   padding: 10px 60px;
 }
+input:focus {
+  outline: none;
+}
 
 .search {
   text-align: left;
@@ -209,11 +212,32 @@ input {
   letter-spacing: 0px;
   color: #04353c;
   opacity: 1;
+  width: 100%;
+  padding-right: 80px;
+  border: 0;
 }
 .searchbox {
   padding: 40px 0 0 0;
 
   text-align: center;
+  position: relative;
+  width: 62.5em;
+  margin-left: 28.75em;
+}
+#submit {
+  position: absolute;
+  right: 1em;
+  top: 67%;
+  transform: translateY(-50%);
+  background: #04353c 0% 0% no-repeat padding-box;
+  border: 0;
+  border-radius: 10px;
+  width: 134px;
+  height: 65px;
+
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
 }
 .searchbox input {
   width: 1000px;
