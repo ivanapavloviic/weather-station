@@ -83,11 +83,24 @@ export default {
         }
       });
     });
+    
     const selectCountry = (country) => {
-      selectedCountry.value = country;
+     
+      if(selectedCountry.length<5)
+     //TODO: redudancy in array
+      selectedCountry.push(country);
       searchTerm.value = "";
+      localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
+      
+
     };
-    let selectedCountry = ref("");
+    let selectedCountry = [];
+  
+    if(JSON.parse(localStorage.getItem("selectedCountry")))    
+    {
+      selectedCountry = localStorage.getItem("selectedCountry")
+    }
+  
 
     return {
       countries,
