@@ -27,7 +27,7 @@
           <li
             v-for="country in searchCountries"
             :key="country.name"
-            @click="selectCountry(country.name)"
+            @click="selectCountry(country)"
           >
             {{ country.name }}
           </li>
@@ -37,7 +37,31 @@
         You have selected:
         <span class="font-semibold">{{ selectedCountry }}</span>
       </p>
-    </div>
+
+     
+        <div class="row">
+         
+            <div
+              class="card"
+              v-for="(item, index) in selectedCountry"
+              :key="index"
+              style="width: 18rem"
+            >
+              <p>{{ item.name }}</p> 
+              <div class="card-body">
+                <h5 class="card-title">{{item.country}}</h5>
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
+                <button @click=getCurrentTemperatureForChosenCity>TEMPERATURA</button>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+
 
     <footer class="footer">Frontend Task | Mad Duck Code</footer>
   </div>
@@ -46,24 +70,41 @@
 <script>
 import { ref, computed } from "vue";
 import axios from "axios";
-axios.defaults.headers["X-API-KEY"] =
-  "JeCu1KIJKAdOb02MlMvicw==nHikrhYzOeZjSjeA";
+//ovaj je za ninja
+// axios.defaults.headers["X-API-KEY"] =
+//   "JeCu1KIJKAdOb02MlMvicw==nHikrhYzOeZjSjeA";
+  //ovaj mi treba za weather UDH8H5X7LKJQHAHQ5EZ3FUVL8
 export default {
   setup() {
     let searchTerm = ref("");
     let countries = ref("");
+    let weather="";
 
     function getCityBySearchTerm() {
       axios
         .get(
-          "https://api.api-ninjas.com/v1/city?limit=10",
-          { params: { name: searchTerm.value } },
-          { limit: 10 }
+          "https://api.api-ninjas.com/v1/city?name="+searchTerm.value+"&limit=10", {headers: { 'X-Api-Key': 'JeCu1KIJKAdOb02MlMvicw==nHikrhYzOeZjSjeA'}}, { params: { limit: 10 } },
+         
+       
+          
         )
         .then((response) => {
           countries.value = response.data;
         });
-      console.log(countries);
+    console.log(countries)
+    }
+
+    function getCurrentTemperatureForChosenCity() {
+      axios
+        .get(
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&locations=London%2CUK" 
+         
+        )
+        .then((response) => {
+          weather = response.data;
+          console.log(weather)
+        });
+    
     }
 
     const searchCountries = computed(() => {
@@ -74,6 +115,7 @@ export default {
       let matches = 0;
 
       return countries.value.filter((country) => {
+        console.log(countries)
         if (
           country.name.toLowerCase().includes(searchTerm.value.toLowerCase()) &&
           matches < 5
@@ -83,24 +125,19 @@ export default {
         }
       });
     });
-    
+
     const selectCountry = (country) => {
-     
-      if(selectedCountry.length<5)
-     //TODO: redudancy in array
-      selectedCountry.push(country);
+      if (selectedCountry.length < 5)
+        //TODO: redudancy in array
+        selectedCountry.push(country);
       searchTerm.value = "";
       localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-      
-
     };
     let selectedCountry = [];
-  
-    if(JSON.parse(localStorage.getItem("selectedCountry")))    
-    {
-      selectedCountry = localStorage.getItem("selectedCountry")
+
+    if (JSON.parse(localStorage.getItem("selectedCountry"))) {
+      selectedCountry = localStorage.getItem("selectedCountry");
     }
-  
 
     return {
       countries,
@@ -109,6 +146,7 @@ export default {
       selectCountry,
       selectedCountry,
       getCityBySearchTerm,
+      getCurrentTemperatureForChosenCity
     };
   },
 };
@@ -201,7 +239,7 @@ label:before {
   content: "";
   position: absolute;
   left: 10px;
-  top: -10px;
+  top: 20px;
   bottom: 0;
   width: 40px;
   height: 40px;
