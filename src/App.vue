@@ -27,19 +27,19 @@
           <li
             v-for="country in searchCountries"
             :key="country.name"
-            @click="selectCountry(country)"
+            @click="selectCountry(country);getCurrentTemperatureForChosenCity(country)"
           >
             {{ country.name }}
           </li>
         </ul>
       </div>
-      <p v-if="selectedCountry" class="text-lg pt-2 absolute">
+      <!-- <p v-if="selectedCountry" class="text-lg pt-2 absolute">
         You have selected:
         <span class="font-semibold">{{ selectedCountry }}</span>
-      </p>
+      </p> -->
 
      
-        <div class="row">
+        <div v-if="selectedCountry" class="row">
          
             <div
               class="card"
@@ -50,12 +50,12 @@
               <p>{{ item.name }}</p> 
               <div class="card-body">
                 <h5 class="card-title">{{item.country}}</h5>
-                <p class="card-text">
+                <!-- <p class="card-text">
                   With supporting text below as a natural lead-in to additional
                   content.
-                </p>
-                <button @click=getCurrentTemperatureForChosenCity>TEMPERATURA</button>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </p> -->
+               <p>{{item.weather.temp}}</p>
+                <a href="#" class="btn btn-primary">View city</a>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@ export default {
   setup() {
     let searchTerm = ref("");
     let countries = ref("");
-    let weather="";
+   
 
     function getCityBySearchTerm() {
       axios
@@ -91,18 +91,19 @@ export default {
         .then((response) => {
           countries.value = response.data;
         });
-    console.log(countries)
+
     }
 
-    function getCurrentTemperatureForChosenCity() {
+    function getCurrentTemperatureForChosenCity(country) {
       axios
         .get(
-          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=us&locationMode=single&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&locations=London%2CUK" 
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?aggregateHours=24&contentType=json&unitGroup=metric&locationMode=single&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&locations="+country.name+'%2c'+country.country 
          
         )
         .then((response) => {
-          weather = response.data;
-          console.log(weather)
+          country.weather = response.data.location.currentConditions;
+          localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
+         
         });
     
     }
@@ -115,28 +116,36 @@ export default {
       let matches = 0;
 
       return countries.value.filter((country) => {
-        console.log(countries)
+      
         if (
           country.name.toLowerCase().includes(searchTerm.value.toLowerCase()) &&
           matches < 5
         ) {
           matches++;
+        
           return country;
         }
       });
     });
 
     const selectCountry = (country) => {
+      console.log(country)
       if (selectedCountry.length < 5)
         //TODO: redudancy in array
         selectedCountry.push(country);
+      console.log(country)
+       
       searchTerm.value = "";
+      getCurrentTemperatureForChosenCity(country)
       localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-    };
-    let selectedCountry = [];
 
+      console.log(JSON.stringify(selectedCountry))
+    };
+
+    let selectedCountry = [];
     if (JSON.parse(localStorage.getItem("selectedCountry"))) {
-      selectedCountry = localStorage.getItem("selectedCountry");
+      selectedCountry = JSON.parse(localStorage.getItem("selectedCountry"));
+      console.log(selectedCountry)
     }
 
     return {
@@ -277,7 +286,7 @@ input:focus {
 }
 #submit {
   position: absolute;
-  right: 1em;
+  /* right: 1em; */
   top: 67%;
   transform: translateY(-50%);
   background: #04353c 0% 0% no-repeat padding-box;
@@ -291,7 +300,7 @@ input:focus {
   opacity: 1;
 }
 .searchbox input {
-  width: 1000px;
+  width: 300px;
   font-size: 16px;
   border: none;
   height: 80px;
