@@ -55,8 +55,10 @@
                     content.
                   </p> -->
                  <p>{{item.weather.temp}}</p>
-                 <router-link class="nav-link" to="/city-weather"
-                >View city</router-link
+                 <router-link   :to="{
+                      name: 'CityWeather',                     
+                      query: { country: item.name + '%2c' + item.country},
+                    }">View city</router-link
               >
                 </div>
               </div>
