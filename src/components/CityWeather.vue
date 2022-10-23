@@ -1,73 +1,113 @@
 <template>
-       
-     <router-link  to="/">  <div class="header"></div></router-link>
+  <router-link to="/"> <div class="header"></div></router-link>
 
-  <div class="container-fluid"  style="margin-right:0">
-    <div class="card" style="width:50%;height:50%">
-    <div class="row">
-      <div class="col-sm-4">
-       
-          <p>{{ this.weather.address }}</p>
-          <div class="card-body">
-            <h5 class="card-title">{{}}</h5>
-            <!-- <p class="card-text">
-                 With supporting text below as a natural lead-in to additional
-                 content.
-               </p> -->
-            <p>{{ this.weather.timezone }}</p>
-            <p>{{ this.weather.latitude }}</p>
+  <div
+    class="container-fluid"
+    style="margin-right: 0; padding-top: 20px; padding-bottom: 20px"
+  >
+    <div class="card" style="width: 50%; height: 100%; margin-left: 11rem">
+      <div class="row" style="padding-top: 20px">
+        <div class="col-sm-4">
+          <h1
+            class="header-title"
+            style="font: normal normal 600 28px/42px Poppins"
+          >
+            {{ this.weather.address }}
+          </h1>
 
-            <p>{{ this.weather.longitude }}</p>
+          <p class="header-title">{{ this.weather.timezone }}</p>
+          <p class="header-title">
+            {{ this.weather.latitude }}° N,{{ this.weather.longitude }}° E
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <i
+            :class="this.weather.currentConditions.icon"
+            style="width: 75px; height: 75px; color: #04353c"
+          ></i>
+          <p class="header-description">
+            {{ this.weather.currentConditions.temp }}°
+          </p>
+        </div>
+        <div class="col-sm-4" style="text-align: left; padding-left: 40px">
+          <div>
+            <span class="header-info">Feels like </span>
+            <span>{{ this.weather.currentConditions.feelslike }}</span>
           </div>
-     
-      </div>
-      <div class="col-sm-4">
-        <i :class="this.weather.currentConditions.icon"></i>
-        <p>{{ this.weather.currentConditions.temp }}</p>
-      </div>
-      <div class="col-sm-4">
-        Feels like
-        <p>{{ this.weather.currentConditions.feelslike }}</p>
-        Humidity
-        <p>{{ this.weather.currentConditions.humidity }}</p>
-        Pressure
-        <p>{{ this.weather.currentConditions.pressure }}</p>
-        Wind
-        <p>{{ this.weather.currentConditions.windspeed }}</p>
-        UV index
-        <p>{{ this.weather.currentConditions.uvindex }}</p>
+          <div>
+            <span class="header-info">Humidity </span>
+            <span>{{ this.weather.currentConditions.humidity }} %</span>
+          </div>
+          <div>
+            <span class="header-info">Pressure </span>
+            <span>{{ this.weather.currentConditions.pressure }} mbar</span>
+          </div>
+          <div>
+            <span class="header-info">Wind </span>
+            <span>{{ this.weather.currentConditions.windspeed }} m/s SE</span>
+          </div>
+          <div>
+            <span class="header-info">UV index </span>
+            <span>{{ this.weather.currentConditions.uvindex }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid" style="margin-right:0">
-  <div class="card" style="width:100%;height:100%">
-    <template v-for="day in this.threeDaysForecast.days" :key="day.id">
-    <div  class="row">  <p>{{day.datetime}}</p></div>
-    <div class="row">
-        <template  v-for="hour in day.hours" :key="hour.id">
-          <span style="display:inline-block;vertical-align:top; width:4.1%;" >{{moment(hour.datetime,"h:mm:ss").format('H')}} h</span>
-   
-        </template>
-        <template   v-for="hour in day.hours" :key="hour.id">
-          <span style="display:inline-block;vertical-align:top; width:4.1%;" > {{hour.temp}}</span>
-           
-        </template>
-
-        <template   v-for="hour in day.hours" :key="hour.id">
-          <i style="display:inline-block;vertical-align:top; width:4.1%;" :class="hour.icon"></i>
-           
-        </template>
+  <div class="container-fluid" style="margin-right: 0">
+    <div
+      class="card"
+      style="width: 80%; height: 100%; margin-left: 11rem; margin-right: 11rem"
+    >
+      <template v-for="day in this.threeDaysForecast.days" :key="day.id">
+        <div class="row" style="padding-left:20px">
+          <p class="date-info">
+            {{ moment(day.datetime).format("dddd, MMM DD.") }}
+          </p>
+        </div>
+        <div class="row" style="padding-left:20px">
+          <div class="row" style="padding-left:20px">
+          <template  v-for="hour in day.hours" :key="hour.id">
+            
+            <span
+              style="
+                display: inline-block;
+                vertical-align: top;
+                width: 3.5rem;
+                text-align: left;
+                font-size:18px;
+                letter-spacing: 0px;
+                color: #04353c;
+                opacity: 1;
+              "
+              >{{ moment(hour.datetime, "h:mm:ss").format("H") }} h</span
+            >
+            
+          </template>
+        </div>
+      
+        <div class="row" style="padding-left:30px">
+          <template v-for="hour in day.hours" :key="hour.id">
+            <i
+              style="display: inline-block; vertical-align: top; width: 3.5rem; white-space: pre;height:22px"
+              :class="hour.icon"
+            ></i>
+          </template>
+        </div>
+        <div class="row" style="padding-left:20px;padding-bottom:10px">
+          <template v-for="hour in day.hours" :key="hour.id">
+            <span
+              style="display: inline-block; vertical-align: top; width: 3.5rem;white-space: pre;"
+            >
+              {{ hour.temp }}°</span
+            >
+          </template>
+        </div>
       </div>
       </template>
-      
-
-
- 
- 
+    
+    </div>
   </div>
-
-</div>
 </template>
 
 <script>
@@ -79,7 +119,7 @@ export default {
     return {
       country: this.$route.query.country,
       weather: [],
-      threeDaysForecast:[]
+      threeDaysForecast: [],
     };
   },
   created() {
@@ -91,29 +131,60 @@ export default {
     getCurrentTemperatureForChosenCity() {
       axios
         .get(
-        //   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/forecast?aggregateHours=1&contentType=json&unitGroup=metric&locationMode=single&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&locations=" +
-        //     this.country
+          //   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/forecast?aggregateHours=1&contentType=json&unitGroup=metric&locationMode=single&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&locations=" +
+          //     this.country
 
-            "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"+this.country+"/today?include=fcst%2Cobs%2Chistfcst%2Cstats%2Ccurrent&unitGroup=metric&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&contentType=json"
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
+            this.country +
+            "/today?include=fcst%2Cobs%2Chistfcst%2Cstats%2Ccurrent&unitGroup=metric&key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&contentType=json"
         )
         .then((response) => {
           this.weather = response.data;
         });
     },
-    getTimelineForecastForNextThreeDays(){
+    getTimelineForecastForNextThreeDays() {
       axios
         .get(
-          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"+this.country+"/next2days?key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&unitGroup=metric"
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
+            this.country +
+            "/next2days?key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&unitGroup=metric"
         )
         .then((response) => {
           this.threeDaysForecast = response.data;
         });
-    }
+    },
   },
 };
 </script>
 
 <style>
+.header-title {
+  text-align: left;
+  letter-spacing: 0px;
+  color: #04353c;
+  opacity: 1;
+  padding-left: 20px;
+}
+.header-description {
+  font: normal normal 600 48px/72px Poppins;
+  letter-spacing: 0px;
+  color: #04353c;
+  opacity: 1;
+}
+.header-info {
+  text-align: left;
+  font-size: 18px;
+  letter-spacing: 0px;
+  color: #04353c;
+  opacity: 1;
+}
+.date-info {
+  text-align: left;
+  font: normal normal 600 22px/33px Poppins;
+  letter-spacing: 0px;
+  color: #04353c;
+  opacity: 1;
+}
 /* weather icons */
 .clear-day {
   display: inline-block;
@@ -126,6 +197,7 @@ export default {
   content: "";
   display: block;
   padding-top: 100%;
+  fill: green;
 }
 
 .clear-night {
