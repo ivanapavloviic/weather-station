@@ -1,74 +1,88 @@
 <template>
-  
-    <div class="content">
-      <p class="headerTitle">Add cities</p>
-      <p class="headerDescription">
-        Add 5 cities whose temperature you want to track
-      </p>
-
-      <div class="searchbox">
-        <label>
-          <input
-            type="text"
-            id="search"
-            v-model="searchTerm"
-            placeholder="Add a city..."
-            class="search"
-          />
-        </label>
-        <button id="submit" @click="getCityBySearchTerm">Add</button>
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <p class="headerTitle">Add cities</p>
+        <p class="headerDescription">
+          Add 5 cities whose temperature you want to track
+        </p>
       </div>
-      <div class="results">
-        <ul v-if="searchCountries.length">
-          <!-- <li >
-            Showing {{ searchCountries.length }} of {{ countries.length }} results
-          </li> -->
-          <li
-            v-for="country in searchCountries"
-            :key="country.name"
-            @click="
-              selectCountry(country);
-              getCurrentTemperatureForChosenCity(country);
-            "
-          >
-            {{ country.name }}
-          </li>
-        </ul>
-      </div>
-      <!-- <p v-if="selectedCountry" class="text-lg pt-2 absolute">
-          You have selected:
-          <span class="font-semibold">{{ selectedCountry }}</span>
-        </p> -->
-
-      <div v-if="selectedCountry" class="row">
-        <div
-          class="card"
-          v-for="(item, index) in selectedCountry"
-          :key="index"
-          style="width: 18rem"
-        >
-          <p>{{ item.name }}</p>
-          <div class="card-body">
-            <h5 class="card-title">{{ item.country }}</h5>
-            <!-- <p class="card-text">
-                    With supporting text below as a natural lead-in to additional
-                    content.
-                  </p> -->
-            <p>{{ item.weather.temp }}</p>
-            <router-link
-              :to="{
-                name: 'CityWeather',
-                query: { country: item.name },
-              }"
-              >View city</router-link
-            >
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="searchbox">
+          <div class="input-group mb-3">
+            <label style="width: 100%">
+              <input
+                type="text"
+                class="form-control search"
+                id="search"
+                v-model="searchTerm"
+                placeholder="Add a city..."
+            /></label>
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="submit"
+                @click="getCityBySearchTerm"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    
-  
+    <div class="results">
+      <ul v-if="searchCountries.length">
+        <!-- <li >
+            Showing {{ searchCountries.length }} of {{ countries.length }} results
+          </li> -->
+        <li
+          v-for="country in searchCountries"
+          :key="country.name"
+          @click="
+            selectCountry(country);
+            getCurrentTemperatureForChosenCity(country);
+          "
+        >
+          {{ country.name }}
+        </li>
+      </ul>
+    </div>
+    <!-- <p v-if="selectedCountry" class="text-lg pt-2 absolute">
+          You have selected:
+          <span class="font-semibold">{{ selectedCountry }}</span>
+        </p> -->
+
+    <div v-if="selectedCountry" class="row">
+      <div
+        class="card"
+        v-for="(item, index) in selectedCountry"
+        :key="index"
+        style="width: 18rem"
+      >
+        <p>{{ item.name }}</p>
+        <div class="card-body">
+          <h5 class="card-title">{{ item.country }}</h5>
+          <!-- <p class="card-text">
+                    With supporting text below as a natural lead-in to additional
+                    content.
+                  </p> -->
+          <p>{{ item.weather.temp }}</p>
+          <router-link
+            :to="{
+              name: 'CityWeather',
+              query: { country: item.name },
+            }"
+            >View city</router-link
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -200,10 +214,10 @@ body {
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 }
 .header {
-  margin-top: 40px;
-  margin-left: 200px;
-  width: 260px;
-  height: 36px;
+  margin-top: 2rem;
+  margin-left: 10rem;
+  width: 25rem;
+  height: 4rem;
   background: transparent url("../assets/mask-group-2.png") 0% 0% no-repeat
     padding-box;
   opacity: 1;
@@ -213,8 +227,7 @@ p {
   margin: 0;
 }
 .headerTitle {
-  margin-top: 80px;
-  margin-left: 29rem;
+  margin-top: 20rem;
   text-align: left;
   font: normal normal 600 24px/35px Poppins;
   letter-spacing: 0px;
@@ -222,8 +235,7 @@ p {
   opacity: 1;
 }
 .headerDescription {
-  margin-top: 20px;
-  margin-left: 29rem;
+  margin-top: 5rem;
   /* UI Properties */
   text-align: left;
   font: normal normal 300 24px/35px Poppins;
@@ -235,7 +247,7 @@ p {
   flex-shrink: 0;
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
   padding: 20px;
-  width:100%;
+  width: 100%;
 }
 
 * {
@@ -258,11 +270,11 @@ label {
 label:before {
   content: "";
   position: absolute;
-  left: 10px;
-  top: 20px;
+  left: 0.75rem;
+  top: 0.75rem;
   bottom: 0;
-  width: 40px;
-  height: 40px;
+  width: 2rem;
+  height: 2rem;
   background: url("../assets/icon-awesome-plus.svg") center / contain no-repeat;
   background-size: 16px 16px;
   background-color: #04353c;
@@ -270,7 +282,7 @@ label:before {
 }
 
 input {
-  padding: 10px 60px;
+  padding: 1rem 4rem !important;
 }
 input:focus {
   outline: none;
@@ -287,33 +299,24 @@ input:focus {
   border: 0;
 }
 .searchbox {
-  padding: 40px 0 0 0;
-
   text-align: center;
-  position: relative;
-  width: 62.5em;
-  margin-left: 28.75em;
 }
 #submit {
   position: absolute;
-  /* right: 1em; */
-  top: 67%;
+  right: 1em;
+  top: 50%;
   transform: translateY(-50%);
   background: #04353c 0% 0% no-repeat padding-box;
   border: 0;
   border-radius: 10px;
-  width: 134px;
-  height: 65px;
+  width: 6rem;
+  height: 3rem;
 
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
 }
 .searchbox input {
-  width: 300px;
-  font-size: 16px;
-  border: none;
-  height: 80px;
   /* UI Properties */
   background: #ffffff 0% 0% no-repeat padding-box;
   border-radius: 10px;
