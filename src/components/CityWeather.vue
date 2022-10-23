@@ -7,14 +7,14 @@
     <div class="row">
       <div class="col-sm-4">
        
-          <p>{{ this.weather.id }}</p>
+          <p>{{ this.weather.address }}</p>
           <div class="card-body">
             <h5 class="card-title">{{}}</h5>
             <!-- <p class="card-text">
                  With supporting text below as a natural lead-in to additional
                  content.
                </p> -->
-            <p>{{ this.weather.tz }}</p>
+            <p>{{ this.weather.timezone }}</p>
             <p>{{ this.weather.latitude }}</p>
 
             <p>{{ this.weather.longitude }}</p>
@@ -40,6 +40,34 @@
     </div>
   </div>
 </div>
+<div class="container-fluid" style="margin-right:0">
+  <div class="card" style="width:100%;height:50%">
+    <template v-for="day in this.threeDaysForecast.days" :key="day.id">
+    <div  class="row">  <p>{{day.datetime}}</p></div>
+    <div class="row">
+        <template style="display:inline-block;vertical-align:top; width:4%;"  v-for="hour in day.hours" :key="hour.id">
+          <span style="display:inline-block;vertical-align:top; width:4%;" > {{hour.datetime}}</span>
+           
+        </template>
+        <template style="display:inline-block;vertical-align:top; width:4%;"  v-for="hour in day.hours" :key="hour.id">
+          <span style="display:inline-block;vertical-align:top; width:4%;" > {{hour.temp}}</span>
+           
+        </template>
+
+        <template style="display:inline-block;vertical-align:top; width:4%;"  v-for="hour in day.hours" :key="hour.id">
+          <span style="display:inline-block;vertical-align:top; width:4%;">  {{hour.icon}}</span>
+           
+        </template>
+      </div>
+      </template>
+      
+
+
+ 
+ 
+  </div>
+
+</div>
 </template>
 
 <script>
@@ -50,10 +78,12 @@ export default {
     return {
       country: this.$route.query.country,
       weather: [],
+      threeDaysForecast:[]
     };
   },
   created() {
     this.getCurrentTemperatureForChosenCity();
+    this.getTimelineForecastForNextThreeDays();
   },
   methods: {
     getCurrentTemperatureForChosenCity() {
@@ -68,6 +98,15 @@ export default {
           this.weather = response.data;
         });
     },
+    getTimelineForecastForNextThreeDays(){
+      axios
+        .get(
+          "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"+this.country+"/next2days?key=UDH8H5X7LKJQHAHQ5EZ3FUVL8&unitGroup=metric"
+        )
+        .then((response) => {
+          this.threeDaysForecast = response.data;
+        });
+    }
   },
 };
 </script>
