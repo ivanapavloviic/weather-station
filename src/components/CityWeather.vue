@@ -1,6 +1,4 @@
 <template>
-  <router-link to="/"> <div class="header"></div></router-link>
-
   <div
     class="container-fluid"
     style="margin-right: 0; padding-top: 20px; padding-bottom: 20px"
@@ -60,52 +58,60 @@
       style="width: 80%; height: 100%; margin-left: 11rem; margin-right: 11rem"
     >
       <template v-for="day in this.threeDaysForecast.days" :key="day.id">
-        <div class="row" style="padding-left:20px">
+        <div class="row" style="padding-left: 20px">
           <p class="date-info">
             {{ moment(day.datetime).format("dddd, MMM DD.") }}
           </p>
         </div>
-        <div class="row" style="padding-left:20px">
-          <div class="row" style="padding-left:20px">
-          <template  v-for="hour in day.hours" :key="hour.id">
-            
-            <span
-              style="
-                display: inline-block;
-                vertical-align: top;
-                width: 3.5rem;
-                text-align: left;
-                font-size:18px;
-                letter-spacing: 0px;
-                color: #04353c;
-                opacity: 1;
-              "
-              >{{ moment(hour.datetime, "h:mm:ss").format("H") }} h</span
-            >
-            
-          </template>
+        <div class="row" style="padding-left: 20px">
+          <div class="row" style="padding-left: 20px">
+            <template v-for="hour in day.hours" :key="hour.id">
+              <span
+                style="
+                  display: inline-block;
+                  vertical-align: top;
+                  width: 3.5rem;
+                  text-align: left;
+                  font-size: 18px;
+                  letter-spacing: 0px;
+                  color: #04353c;
+                  opacity: 1;
+                "
+                >{{ moment(hour.datetime, "h:mm:ss").format("H") }} h</span
+              >
+            </template>
+          </div>
+
+          <div class="row" style="padding-left: 30px">
+            <template v-for="hour in day.hours" :key="hour.id">
+              <i
+                style="
+                  display: inline-block;
+                  vertical-align: top;
+                  width: 3.5rem;
+                  white-space: pre;
+                  height: 22px;
+                "
+                :class="hour.icon"
+              ></i>
+            </template>
+          </div>
+          <div class="row" style="padding-left: 20px; padding-bottom: 10px">
+            <template v-for="hour in day.hours" :key="hour.id">
+              <span
+                style="
+                  display: inline-block;
+                  vertical-align: top;
+                  width: 3.5rem;
+                  white-space: pre;
+                "
+              >
+                {{ hour.temp }}°</span
+              >
+            </template>
+          </div>
         </div>
-      
-        <div class="row" style="padding-left:30px">
-          <template v-for="hour in day.hours" :key="hour.id">
-            <i
-              style="display: inline-block; vertical-align: top; width: 3.5rem; white-space: pre;height:22px"
-              :class="hour.icon"
-            ></i>
-          </template>
-        </div>
-        <div class="row" style="padding-left:20px;padding-bottom:10px">
-          <template v-for="hour in day.hours" :key="hour.id">
-            <span
-              style="display: inline-block; vertical-align: top; width: 3.5rem;white-space: pre;"
-            >
-              {{ hour.temp }}°</span
-            >
-          </template>
-        </div>
-      </div>
       </template>
-    
     </div>
   </div>
 </template>
