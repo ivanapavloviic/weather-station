@@ -41,21 +41,21 @@
   </div>
 </div>
 <div class="container-fluid" style="margin-right:0">
-  <div class="card" style="width:100%;height:50%">
+  <div class="card" style="width:100%;height:100%">
     <template v-for="day in this.threeDaysForecast.days" :key="day.id">
     <div  class="row">  <p>{{day.datetime}}</p></div>
     <div class="row">
-        <template style="display:inline-block;vertical-align:top; width:4%;"  v-for="hour in day.hours" :key="hour.id">
-          <span style="display:inline-block;vertical-align:top; width:4%;" > {{hour.datetime}}</span>
-           
+        <template  v-for="hour in day.hours" :key="hour.id">
+          <span style="display:inline-block;vertical-align:top; width:4.1%;" >{{moment(hour.datetime,"h:mm:ss").format('H')}} h</span>
+   
         </template>
-        <template style="display:inline-block;vertical-align:top; width:4%;"  v-for="hour in day.hours" :key="hour.id">
-          <span style="display:inline-block;vertical-align:top; width:4%;" > {{hour.temp}}</span>
+        <template   v-for="hour in day.hours" :key="hour.id">
+          <span style="display:inline-block;vertical-align:top; width:4.1%;" > {{hour.temp}}</span>
            
         </template>
 
-        <template style="display:inline-block;vertical-align:top; width:4%;"  v-for="hour in day.hours" :key="hour.id">
-          <span style="display:inline-block;vertical-align:top; width:4%;">  {{hour.icon}}</span>
+        <template   v-for="hour in day.hours" :key="hour.id">
+          <i style="display:inline-block;vertical-align:top; width:4.1%;" :class="hour.icon"></i>
            
         </template>
       </div>
@@ -72,6 +72,7 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 export default {
   name: "CityWeather",
   data() {
@@ -82,6 +83,7 @@ export default {
     };
   },
   created() {
+    this.moment = moment;
     this.getCurrentTemperatureForChosenCity();
     this.getTimelineForecastForNextThreeDays();
   },
