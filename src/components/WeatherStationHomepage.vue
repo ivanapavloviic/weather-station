@@ -57,26 +57,65 @@
           <span class="font-semibold">{{ selectedCountry }}</span>
         </p> -->
 
-    <div v-if="selectedCountry" class="row">
+    <div v-if="selectedCountry" class="row justify-content-center">
+      
       <div
         class="card"
         v-for="(item, index) in selectedCountry"
         :key="index"
-        style="width: 18rem"
+        style="
+          width: 12rem;
+          height: 16rem;
+          padding: 2rem;
+          margin-top: 8rem;
+          margin-left: 2rem;
+        "
       >
-        <p>{{ item.name }}</p>
-        <div class="card-body">
-          <h5 class="card-title">{{ item.country }}</h5>
-          <!-- <p class="card-text">
-                    With supporting text below as a natural lead-in to additional
-                    content.
-                  </p> -->
-          <p>{{ item.weather.temp }}</p>
+        <p
+          style="
+            text-align: center;
+            font: normal normal 600 22px/35px Poppins;
+            letter-spacing: 0px;
+            color: #04353c;
+            opacity: 1;
+            white-space: pre;
+          "
+        >
+          {{ item.name }}
+        </p>
+        <p
+          class="card-title"
+          style="
+            text-align: center;
+            font: normal normal normal 16px/25px Poppins;
+            letter-spacing: 0px;
+            color: #707070;
+            opacity: 1;
+            margin-bottom: 0 !important;
+            white-space: pre;
+          "
+        >
+          {{ item.country }}
+        </p>
+        <div class="card-body" style="padding: 0 !important">
+          <p
+            style="
+              text-align: center;
+              font: normal normal 600 43px/72px Poppins;
+              letter-spacing: 0px;
+              color: #04353c;
+              opacity: 1;
+              white-space: pre;
+            "
+          >
+            {{ item.weather.temp }}°C
+          </p>
           <router-link
             :to="{
               name: 'CityWeather',
               query: { country: item.name },
             }"
+            class="routerLink"
             >View city</router-link
           >
         </div>
@@ -315,6 +354,21 @@ input:focus {
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
+}
+.routerLink {
+  text-decoration: none;
+  background: #04353c 0% 0% no-repeat padding-box;
+  border: 0;
+  border-radius: 10px;
+  width: 10rem;
+  height: 3rem;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  padding: 0.75rem 1rem;
+}
+.routerLink:hover {
+  color: white;
 }
 .searchbox input {
   /* UI Properties */
