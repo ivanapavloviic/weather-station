@@ -192,9 +192,11 @@ export default {
 
     const selectCountry = (country) => {
       console.log(country);
-      if (selectedCountry.length < 5)
+      if (selectedCountry.length < 5 )
         //TODO: redudancy in array
-        selectedCountry.push(country);
+        if(!selectedCountry.includes(country)){
+                selectedCountry.push(country);}
+                
       console.log(country);
 
       searchTerm.value = "";
