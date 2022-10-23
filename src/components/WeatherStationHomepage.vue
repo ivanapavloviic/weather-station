@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  
     <div class="content">
       <p class="headerTitle">Add cities</p>
       <p class="headerDescription">
@@ -67,8 +67,8 @@
       </div>
     </div>
 
-    <footer class="footer">Frontend Task | Mad Duck Code</footer>
-  </div>
+    
+  
 </template>
 
 <script>
@@ -235,6 +235,7 @@ p {
   flex-shrink: 0;
   /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
   padding: 20px;
+  width:100%;
 }
 
 * {
@@ -242,6 +243,7 @@ p {
 }
 footer {
   height: 60px;
+
   background: #04353c 0% 0% no-repeat padding-box;
   opacity: 1;
   font: normal normal 300 16px/25px Poppins;
