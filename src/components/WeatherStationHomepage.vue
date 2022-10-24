@@ -240,6 +240,7 @@ body {
     url("../assets/mask-group-1.png") 0% 0% no-repeat padding-box;
   opacity: 1;
   margin: 0 !important;
+  overflow:hidden;
 }
 
 .content {
