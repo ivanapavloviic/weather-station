@@ -55,7 +55,7 @@
   <div class="container-fluid" style="margin-right: 0">
     <div
       class="card"
-      style="width: 80%; height: 100%; margin-left: 11rem; margin-right: 11rem"
+      style="height: 100%;"
     >
       <template v-for="day in this.threeDaysForecast.days" :key="day.id">
         <div class="row" style="padding-left: 20px">
@@ -63,8 +63,10 @@
             {{ moment(day.datetime).format("dddd, MMM DD.") }}
           </p>
         </div>
-        <div class="row" style="padding-left: 20px">
-          <div class="row" style="padding-left: 20px">
+        <div class="row" style="padding-left: 20px;overflow-x: auto;
+            white-space: nowrap;">
+          <div class="row" style="padding-left: 20px; display: inline-block;
+            float: none;">
             <template v-for="hour in day.hours" :key="hour.id">
               <span
                 style="
@@ -83,7 +85,8 @@
             </template>
           </div>
 
-          <div class="row" style="padding-left: 1.2rem">
+          <div class="row" style="padding-left: 1.2rem;display: inline-block;
+            float: none;">
             <template v-for="hour in day.hours" :key="hour.id">
               <i
                 style="
@@ -97,7 +100,8 @@
               ></i>
             </template>
           </div>
-          <div class="row" style="padding-left: 20px; padding-bottom: 10px">
+          <div class="row" style="padding-left: 20px; padding-bottom: 10px;display: inline-block;
+            float: none;">
             <template v-for="hour in day.hours" :key="hour.id">
               <span
                 style="
@@ -165,10 +169,27 @@ export default {
 </script>
 
 <style>
+
+::-webkit-scrollbar{
+        height: 0.6rem;
+        width: 10px;
+        background: #EFEFEF;
+    }
+    .wrapper::-webkit-scrollbar-track{
+  background: #5D979B;
+  border-radius: 20px;
+}
+    ::-webkit-scrollbar-thumb{
+        background: #EFEFEF;
+        border-radius: 10px;
+        width:15px;
+        border: 5px solid #5D979B;
+    }
+  
 .header-title {
   text-align: left;
   letter-spacing: 0px;
-  color: #04353c;
+  color: #04353C;
   opacity: 1;
   padding-left: 20px;
 }
