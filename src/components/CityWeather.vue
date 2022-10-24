@@ -175,11 +175,11 @@ export default {
         width: 10px;
         background: #EFEFEF;
     }
-    .wrapper::-webkit-scrollbar-track{
+    .wrapper::-webkit-scrollbar-track:horizontal{
   background: #5D979B;
   border-radius: 20px;
 }
-    ::-webkit-scrollbar-thumb{
+    ::-webkit-scrollbar-thumb:horizontal{
         background: #EFEFEF;
         border-radius: 10px;
         width:15px;
