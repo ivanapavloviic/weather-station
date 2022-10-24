@@ -70,25 +70,26 @@
                 style="
                   display: inline-block;
                   vertical-align: top;
-                  width: 3.5rem;
+                  width: 2.5rem;
                   text-align: left;
-                  font-size: 18px;
+                  font-size: 16px;
                   letter-spacing: 0px;
                   color: #04353c;
                   opacity: 1;
+                  white-space: pre;
                 "
                 >{{ moment(hour.datetime, "h:mm:ss").format("H") }} h</span
               >
             </template>
           </div>
 
-          <div class="row" style="padding-left: 30px">
+          <div class="row" style="padding-left: 1.2rem">
             <template v-for="hour in day.hours" :key="hour.id">
               <i
                 style="
                   display: inline-block;
                   vertical-align: top;
-                  width: 3.5rem;
+                  width: 2.5rem;
                   white-space: pre;
                   height: 22px;
                 "
@@ -102,7 +103,7 @@
                 style="
                   display: inline-block;
                   vertical-align: top;
-                  width: 3.5rem;
+                  width: 2.5rem;
                   white-space: pre;
                 "
               >
