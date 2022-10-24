@@ -12,7 +12,11 @@
 
 
 <router-view></router-view>
-<footer class="footer">Frontend Task | Mad Duck Code</footer>
+
+<footer class="footer mt-auto py-3">
+  <div class="container">
+      <span>Frontend Task | Mad Duck Code</span>
+    </div></footer>
 </template>
 
 <script>

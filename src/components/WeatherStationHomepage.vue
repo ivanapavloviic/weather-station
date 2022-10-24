@@ -278,10 +278,11 @@ p {
   opacity: 1;
 }
 .footer {
-  flex-shrink: 0;
-  /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
-  padding: 20px;
+   position: absolute;
+  bottom: 0;
   width: 100%;
+  height: 40px; /* Set the fixed height of the footer here */
+  line-height: 20px; 
 }
 
 * {
