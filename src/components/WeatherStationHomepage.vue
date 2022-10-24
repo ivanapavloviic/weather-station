@@ -37,9 +37,7 @@
 
     <div class="results">
       <ul v-if="searchCountries.length">
-        <!-- <li >
-            Showing {{ searchCountries.length }} of {{ countries.length }} results
-          </li> -->
+        
         <li
           v-for="country in searchCountries"
           :key="country.name"
@@ -52,13 +50,9 @@
         </li>
       </ul>
     </div>
-    <!-- <p v-if="selectedCountry" class="text-lg pt-2 absolute">
-          You have selected:
-          <span class="font-semibold">{{ selectedCountry }}</span>
-        </p> -->
+    
 
     <div v-if="selectedCountry" class="row justify-content-center">
-      
       <div
         class="card"
         v-for="(item, index) in selectedCountry"
@@ -127,10 +121,7 @@
 <script>
 import { ref, computed } from "vue";
 import axios from "axios";
-//ovaj je za ninja
-// axios.defaults.headers["X-API-KEY"] =
-//   "JeCu1KIJKAdOb02MlMvicw==nHikrhYzOeZjSjeA";
-//ovaj mi treba za weather UDH8H5X7LKJQHAHQ5EZ3FUVL8
+
 export default {
   setup() {
     let searchTerm = ref("");
@@ -192,11 +183,12 @@ export default {
 
     const selectCountry = (country) => {
       console.log(country);
-      if (selectedCountry.length < 5 )
-        //TODO: redudancy in array
-        if(!selectedCountry.includes(country)){
-                selectedCountry.push(country);}
-                
+      if (selectedCountry.length < 5)
+        if (!selectedCountry.includes(country)) {
+          //TODO: redudancy in array
+          selectedCountry.push(country);
+        }
+
       console.log(country);
 
       searchTerm.value = "";
